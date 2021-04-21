@@ -204,9 +204,21 @@ function navigate() {
     bList.appendChild(li);
   }
 
-
-
 }
+
+
+bList.addEventListener("click", function(event) {
+  var element = event.target;
+  // TODO: Describe the functionality of the following `if` statement.
+  if (element.matches("button") === true) {
+    var index = element.parentElement.getAttribute("data-index");
+    todos.splice(index, 1);
+    // TODO: What will happen when the following functions are called?
+    // storeTodos();
+    // renderTodos();
+  }
+});
+
 
 // TODO: Describe the functionality of the following event listener.
 // carousel.addEventListener("click", function() {

@@ -2,12 +2,14 @@
 
 ## Description
 
- THis porject is create a Time Quiz powered by JavaScript code, HTML,CSS, and API
+ This porject is a Timed Quiz powered by JavaScript code, HTML,CSS, and API
 
  ## Run
-To view this project, click [Password Generator](https://klhi3.github.io/code-quiz/)
+To view this project, click [Code Quiz](https://klhi3.github.io/code-quiz/)
 
 ## Features
+
+Answer questions under timer and save my score
 
 
 ## Portfolio
