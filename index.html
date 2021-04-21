@@ -15,22 +15,78 @@
         <nav>
             <ul>
                 <li>View Highscores</li>
-                <li class="timer">Time: 0</li>
+                <li>Time: <span id="timer">0</span></li>
             </ul>
         </nav>
     </header>
 
     <div class="container">
-        <h1>Coding Quiz Challenge</h1>
 
-        <p class="qtn">Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers
-            will penalize your score/time by ten secons!</p>
-      
-        <div class="wrapper">   
-            <div class="button-group">
-                <button>Start Quiz</button>
+        <!-- Welcome page -->
+        <div id="firstPage">
+            <h1  id="title">Coding Quiz Challenge</h1>
+            
+            <p id="qtn">Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers
+                will penalize your score/time by ten secons!</p>
+            
+            <div class="wrapper">   
+                <div class="button-group">
+                    <button id="start">Start Quiz</button>
+                </div>
             </div>
         </div>
+
+        <!-- questions page -->
+        <div id="questionPage">
+            <div class="card">   
+                <h2  id="qtitle">question</h2>
+                
+                <div class="button-group">
+                    <ul id="buttonList"></ul>
+                </div>
+                <p></p>
+                <div class="msg"></div>  
+            </div>
+
+        </div>
+
+         <!-- all done page -->
+        <div id="allDonePage">
+            <div class="card">
+
+                <h1>All done!</h1>
+                <p>Your final score is <span id="scoreUser">22</span></p>
+
+                <form method="POST">
+                    <div class="input-group">
+                        <label for="initial">Enter initials:</label>
+                        <input type="initialName" name="initialName" id="initialName" />
+                        <button id="initialSubmit">submit</button>
+                    </div>
+                    <p>---------------------------------</p>
+                    <div class="msg">Wrong!</div>        
+                </form>
+ 
+
+            </div>
+          </div>
+
+       <!-- score page-->
+        <div id="scorePage">
+            <h1  id="title">Highscores</h1>
+            <p></p>
+            <div id="scoreList">
+                <ul id="score-list">list</ul>
+            </div>
+            <p></p>
+            <div class="wrapper">  
+                <div class="button-group">
+                    <button id="goBackBtn">Goback</button>
+                    <button id="clearHSBtn">Clear Highscores</button>
+                </div>
+            </div>
+        </div>
+
     </div>
     <script src="./assets/js/script.js"></script>
 </body>

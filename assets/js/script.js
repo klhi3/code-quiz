@@ -1,24 +1,34 @@
 // Dependencies
-// TODO: Which element is the following line of code selecting?
-// var carousel = document.querySelector(".carouselbox");
-// var next = carousel.querySelector(".next");
-var timerEl = document.querySelector(".timer");
+
+var qPage = document.querySelector("#questionPage");
+var qtitle = qPage.children[0].querySelector("#qtitle");
+var qbuttonEl = document.querySelector("#buttonList");
+
+console.dir(qPage);
+var bList = qPage.children[0].children[1].querySelector("#buttonList");
+console.dir(bList);
+
+var timerEl = document.querySelector("#timer");
+var startButton = document.querySelector("#start");
+
+// STARTING DATA
+var timer = localStorage.getItem("timer") || 75;
+
+// Display the current count
+timerEl.textContent = timer;
+
+
+
+
+
 
 // Data
 var index = 0;
-var currentImage;
-
-var images = [
-  "https://picsum.photos/300/200",
-  "https://picsum.photos/300/201",
-  "https://picsum.photos/300/202",
-  "https://picsum.photos/300/203"
-];
-
+var questionOne;
 
 // define initial variables
 var total_timer = 75;
-var wrong_answer_time_discount = 15;
+var time_discount = 10;
 
 // define variable first page
 var start_question = {
@@ -28,6 +38,7 @@ var start_question = {
 }
 
 var answers = ["Wrong!","Correct!"] ;
+var index = 0;
 
 // define variable questions
 var questions = [
@@ -117,6 +128,22 @@ var questions = [
 //   navigate(-1);
 // });
 
+function finishQuiz(){
+   var titleEl = document.querySelector("#title");
+   titleEl.textContent = "All done!"
+   var qtnEl = document.querySelector("#qtn");
+  //  var scoreSt = getLoca;
+
+   qtnEl.textContent = "Your final score is "+ score;
+   
+   var initialEl = document.querySelector(".input-group");
+   initialEl.setAttribute("display","block")
+
+   var initialElValue = document.querySelector(".input-group");
+
+}
+
+
 function countdown() {
   var timeLeft = 75;
 
@@ -125,24 +152,101 @@ function countdown() {
     // As long as the `timeLeft` is greater than 1
     if (timeLeft > 1) {
       // Set the `textContent` of `timerEl` to show the remaining seconds
-      timerEl.textContent = 'Time: '+timeLeft;
+      timerEl.textContent = timeLeft;
       // Decrement `timeLeft` by 1
       timeLeft--;
     } else if (timeLeft === 1) {
       // When `timeLeft` is equal to 1, rename to 'second' instead of 'seconds'
-      timerEl.textContent = 'Time: '+timeLeft;
+      timerEl.textContent = timeLeft;
       timeLeft--;
     } else {
       // Once `timeLeft` gets to 0, set `timerEl` to an empty string
-      timerEl.textContent = 'Time: 0';
+      timerEl.textContent = "0";
       // Use `clearInterval()` to stop the timer
       clearInterval(timeInterval);
       // Call the `displayMessage()` function
       // displayMessage();
+      finishQuiz();
     }
   }, 1000);
 }
 
+function navigate() {
+  index = index + 1;
+  if (index < 0) { 
+    index = questions.length - 1; 
+  } else if (index > questions.length - 1) { 
+    index = 0;
+  }
+  questionOne = questions[index];
 
-// navigate(0);
-countdown();
+  qtitle.textContent = questionOne.question;
+
+
+  bList.innerHTML="";
+  for (var i = 0; i < questionOne.choices.length; i++) {
+    var tmp = questionOne.choices[i];
+
+    //create
+    var li = document.createElement("li");
+   
+    //build
+    // li.textContent = tmp;
+    li.setAttribute("data-index", i);
+
+      //create
+    var button = document.createElement("button");
+  //build
+    button.textContent = tmp;
+
+    //place
+    li.appendChild(button);
+    bList.appendChild(li);
+  }
+
+
+
+}
+
+// TODO: Describe the functionality of the following event listener.
+// carousel.addEventListener("click", function() {
+//   window.location.href = images[index];
+// });
+
+// TODO: Describe the functionality of the following event listener.
+// next.addEventListener("click", function(event) {
+//   // TODO: What is the purpose of the following line of code?
+//   event.stopPropagation();
+
+//   navigate(1);
+// });
+
+
+
+startButton.addEventListener("click", function() {
+  if (timer > 0) {
+    countdown();
+
+    var firstEl=document.querySelector("#firstPage");
+   
+    firstEl.style.display="none";
+
+    var questionEl=document.querySelector("#questionPage");
+    questionEl.style.display="block";
+
+    navigate();
+    
+    // renderQuestions();
+
+    for (var i=0; i<questions.length;i++){
+
+    }
+
+
+
+    // // update the dispaly of the timer
+    // timer.textContent = timer;
+    // // store the current count in local storage
+    // localStorage.setItem("timer", timer);
+  }
+});
