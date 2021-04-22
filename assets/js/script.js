@@ -207,6 +207,23 @@ function navigate() {
 }
 
 
+bLis.addEventListener("submit", function(event) {
+  event.preventDefault();
+  var todoText = todoInput.value.trim();
+  // TODO: Describe the functionality of the following `if` statement.
+  if (todoText === "") {
+    return;
+  }
+ // TODO: Describe the purpose of the following lines of code.
+  todos.push(todoText);
+  todoInput.value = "";
+ 
+  // TODO: What will happen when the following functions are called?
+  storeTodos();
+  renderTodos();
+});
+
+
 bList.addEventListener("click", function(event) {
   var element = event.target;
   // TODO: Describe the functionality of the following `if` statement.
