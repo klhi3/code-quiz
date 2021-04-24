@@ -254,8 +254,10 @@ bList.addEventListener("click", function(event) {
 
 startButton.addEventListener("click", function() {
   if (timer > 0) {
-    countdown();
 
+    console.log("click button")
+    countdown();
+   
     var firstEl=document.querySelector("#firstPage");
    
     firstEl.style.display="none";
