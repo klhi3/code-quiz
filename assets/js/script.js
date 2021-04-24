@@ -229,7 +229,8 @@ bList.addEventListener("click", function(event) {
   // TODO: Describe the functionality of the following `if` statement.
   if (element.matches("button") === true) {
     var index = element.parentElement.getAttribute("data-index");
-    todos.splice(index, 1);
+    
+    // todos.splice(index, 1);
     // TODO: What will happen when the following functions are called?
     // storeTodos();
     // renderTodos();
