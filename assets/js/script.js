@@ -223,7 +223,6 @@ function navigate() {
 //   renderTodos();
 // });
 
-
 bList.addEventListener("click", function(event) {
   var element = event.target;
   // TODO: Describe the functionality of the following `if` statement.
