@@ -129,6 +129,7 @@ var questions = [
 // });
 
 function finishQuiz(){
+  console.log("finishQUiz");
    var titleEl = document.querySelector("#title");
    titleEl.textContent = "All done!"
    var qtnEl = document.querySelector("#qtn");
@@ -145,6 +146,7 @@ function finishQuiz(){
 
 
 function countdown() {
+  console.log("countdown");
   var timeLeft = 75;
 
   // Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
@@ -172,6 +174,7 @@ function countdown() {
 }
 
 function navigate() {
+  console.log("navigate");
   index = index + 1;
   if (index < 0) { 
     index = questions.length - 1; 
@@ -194,9 +197,9 @@ function navigate() {
     // li.textContent = tmp;
     li.setAttribute("data-index", i);
 
-      //create
+    //create
     var button = document.createElement("button");
-  //build
+    //build
     button.textContent = tmp;
 
     //place
@@ -224,6 +227,7 @@ function navigate() {
 // });
 
 bList.addEventListener("click", function(event) {
+  console.log("clock");
   var element = event.target;
   // TODO: Describe the functionality of the following `if` statement.
   if (element.matches("button") === true) {
@@ -253,6 +257,7 @@ bList.addEventListener("click", function(event) {
 
 
 startButton.addEventListener("click", function() {
+  console.log("click.timer");
   if (timer > 0) {
 
     console.log("click button")
