@@ -227,12 +227,13 @@ function navigate() {
 // });
 
 bList.addEventListener("click", function(event) {
-  console.log("clock");
+  console.log("click");
+
   var element = event.target;
   // TODO: Describe the functionality of the following `if` statement.
   if (element.matches("button") === true) {
     var index = element.parentElement.getAttribute("data-index");
-    
+    console.log(questions[index]);  
     // todos.splice(index, 1);
     // TODO: What will happen when the following functions are called?
     // storeTodos();
