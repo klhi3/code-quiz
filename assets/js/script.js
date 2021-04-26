@@ -3,6 +3,9 @@
 var qPage = document.querySelector("#questionPage");
 var qtitle = qPage.children[0].querySelector("#qtitle");
 var qbuttonEl = document.querySelector("#buttonList");
+var msg = document.querySelector(".msg");
+var score =0;
+var timeLeft = 75;
 
 console.dir(qPage);
 var bList = qPage.children[0].children[1].querySelector("#buttonList");
@@ -16,10 +19,6 @@ var timer = localStorage.getItem("timer") || 75;
 
 // Display the current count
 timerEl.textContent = timer;
-
-
-
-
 
 
 // Data
@@ -147,7 +146,7 @@ function finishQuiz(){
 
 function countdown() {
   console.log("countdown");
-  var timeLeft = 75;
+
 
   // Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
   var timeInterval = setInterval(function () {
@@ -175,12 +174,8 @@ function countdown() {
 
 function navigate() {
   console.log("navigate");
-  index = index + 1;
-  if (index < 0) { 
-    index = questions.length - 1; 
-  } else if (index > questions.length - 1) { 
-    index = 0;
-  }
+  
+  console.log("navigate.index:"+index);
   questionOne = questions[index];
 
   qtitle.textContent = questionOne.question;
@@ -206,7 +201,7 @@ function navigate() {
     li.appendChild(button);
     bList.appendChild(li);
   }
-
+  // index & questions
 }
 
 
@@ -230,15 +225,41 @@ bList.addEventListener("click", function(event) {
   console.log("click");
 
   var element = event.target;
-  // TODO: Describe the functionality of the following `if` statement.
+
+  // Describe the functionality of the following `if` statement.
   if (element.matches("button") === true) {
-    var index = element.parentElement.getAttribute("data-index");
-    console.log(questions[index]);  
+    // choices : idx 
+    var idx = element.parentElement.getAttribute("data-index");
+    console.log("my choice:"+idx); 
+    console.log("index:"+index)
+    console.log("questions:"+questions[index].question);
+    var rst = (questions[index].answer==questions[index].choices[idx]?1:0);
+    if (rst) score += 10;
+    else     timeLeft -= 10;
+
+    console.dir(msg);
+    console.log(rst);
+    console.log(answers[rst]);
+
+    msg.textContent = answers[rst];
+    
+
+    console.log("choice:"+questions[index].choices[idx]);
+    console.log("answer:"+questions[index].answer);
+    console.log("score:"+score);
+    console.log("time left:"+timeLeft);
     // todos.splice(index, 1);
     // TODO: What will happen when the following functions are called?
     // storeTodos();
     // renderTodos();
+    if (index<questions.length-1) {
+      index += 1;
+      navigate();
+    }
+    else 
+      finishQuiz();
   }
+  
 });
 
 
@@ -256,7 +277,7 @@ bList.addEventListener("click", function(event) {
 // });
 
 
-
+//first page button
 startButton.addEventListener("click", function() {
   console.log("click.timer");
   if (timer > 0) {
@@ -273,14 +294,6 @@ startButton.addEventListener("click", function() {
 
     navigate();
     
-    // renderQuestions();
-
-    for (var i=0; i<questions.length;i++){
-
-    }
-
-
-
     // // update the dispaly of the timer
     // timer.textContent = timer;
     // // store the current count in local storage
