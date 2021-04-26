@@ -5,12 +5,20 @@ var qtitle = qPage.children[0].querySelector("#qtitle");
 var qbuttonEl = document.querySelector("#buttonList");
 var allDonePage = document.querySelector("#allDonePage");
 var msg = document.querySelector(".msg");
+var scorePage = document.querySelector("#scorePage");
+var scoreList = scorePage.children[2].querySelector("#score-list");
+
 var score = 0;
 var timeLeft = 75;
+var initialElValue;
+var scoreUsers = [];  // {user, score}
+var tmpUS ;
 
-console.dir(qPage);
+// questions page button
 var bList = qPage.children[0].children[1].querySelector("#buttonList");
-console.dir(bList);
+
+// All done submit button
+var submitInitial = allDonePage.children[0].children[2].querySelector("#initialSubmit");
 
 var timerEl = document.querySelector("#timer");
 var startButton = document.querySelector("#start");
@@ -20,7 +28,6 @@ var timer = localStorage.getItem("timer") || 75;
 
 // Display the current count
 timerEl.textContent = timer;
-
 
 // Data
 var index = 0;
@@ -96,22 +103,69 @@ var questions = [
 
 function finishQuiz(){
   console.log("finishQuiz");
-  console.dir(qPage);
 
   qPage.style.display = "none";
   allDonePage.style.display = "block";
 
    var titleEl = document.querySelector("#title");
    titleEl.textContent = "All done!"
-   var qtnEl = document.querySelector("#qtn");
-  //  var scoreSt = getLoca;
 
+   var qtnEl = document.querySelector("#scoreUser");
    qtnEl.textContent = "Your final score is "+ score;
    
-   var initialEl = document.querySelector(".input-group");
-   initialEl.setAttribute("display","block")
+   var initialInput = document.querySelector("#initialName");
+   initialInput.setAttribute("display","block");
 
-   var initialElValue = document.querySelector(".input-group");
+   console.log("dir:");
+   console.dir(initialInput);
+
+   var initialInputValue = initialInput.nodeValue;
+   console.log("value:"+initialInputValue);
+
+   var tmpUSS = { user : initialInputValue, score: score };
+
+   scoreUsers.push(tmpUSS); 
+   localStorage.setItem("quiz-users", JSON.stringify(scoreUsers));
+}
+
+function renderUsers() {
+  // Clear todoList element and update todoCountSpan
+    console.log(scoreUsers);
+    console.log(scoreList);
+     scoreList.innerHTML = "";
+  // todoCountSpan.textContent = todos.length;
+
+  // Render a new li for each todo
+  for (var i = 0; i < scoreUsers.length; i++) {
+    tmpUS = scoreUsers[i];
+
+    var li = document.createElement("li");
+    li.textContent = tmpUS;
+    li.setAttribute("data-index", i);
+
+    scoreList.appendChild(li);
+  }
+}
+
+
+submitInitial.addEventListener("click", function(event) {
+  event.preventDefault();
+  console.log("alldonePage submit");
+
+  //localStorage.setItem("timer", timer);
+  allDonePage.style.display = "none";
+  scorePage.style.display = "block";
+  renderUsers();
+});
+
+// submitInitial.addEventListener("click", function(event) {
+
+// });
+
+
+
+function saveHighScore() {
+
 
 }
 
@@ -150,7 +204,6 @@ function navigate() {
 
   qtitle.textContent = questionOne.question;
 
-
   bList.innerHTML="";
   for (var i = 0; i < questionOne.choices.length; i++) {
     var tmp = questionOne.choices[i];
@@ -171,7 +224,7 @@ function navigate() {
     li.appendChild(button);
     bList.appendChild(li);
   }
-  // index & questions
+  // return values : index & questions
 }
 
 
@@ -191,6 +244,7 @@ function navigate() {
 //   renderTodos();
 // });
 
+//quetions page
 bList.addEventListener("click", function(event) {
   console.log("click");
 
@@ -202,11 +256,9 @@ bList.addEventListener("click", function(event) {
     var idx = element.parentElement.getAttribute("data-index");
     var rst = (questions[index].answer==questions[index].choices[idx]?1:0);
     if (rst) score += 10;
-    else     timeLeft -= 10;
-
+    else timeLeft -= 20;
     msg.textContent = answers[rst];
-    console.log("score:"+score);
-    
+
     if (index<questions.length-1) {
       index += 1;
       navigate();
@@ -214,7 +266,6 @@ bList.addEventListener("click", function(event) {
     else 
       finishQuiz();
   }
-  
 });
 
 //first page button
