@@ -3,8 +3,9 @@
 var qPage = document.querySelector("#questionPage");
 var qtitle = qPage.children[0].querySelector("#qtitle");
 var qbuttonEl = document.querySelector("#buttonList");
+var allDonePage = document.querySelector("#allDonePage");
 var msg = document.querySelector(".msg");
-var score =0;
+var score = 0;
 var timeLeft = 75;
 
 console.dir(qPage);
@@ -93,42 +94,13 @@ var questions = [
     }
   ];
 
-// carousel.style.backgroundImage = "url('https://picsum.photos/300/200')";
-
-// function navigate(direction) {
-//   index = index + direction;
-//   if (index < 0) { 
-//     index = images.length - 1; 
-//   } else if (index > images.length - 1) { 
-//     index = 0;
-//   }
-//   currentImage = images[index];
-//   carousel.style.backgroundImage = "url('" + currentImage + "')";
-// }
-
-// // TODO: Describe the functionality of the following event listener.
-// carousel.addEventListener("click", function() {
-//   window.location.href = images[index];
-// });
-
-// // TODO: Describe the functionality of the following event listener.
-// next.addEventListener("click", function(event) {
-//   // TODO: What is the purpose of the following line of code?
-//   event.stopPropagation();
-
-//   navigate(1);
-// });
-
-// // TODO: Describe the functionality of the following event listener.
-// prev.addEventListener("click", function(event) {
-//     // TODO: What would happen if we didn't add the following line of code?
-//   event.stopPropagation();
-
-//   navigate(-1);
-// });
-
 function finishQuiz(){
-  console.log("finishQUiz");
+  console.log("finishQuiz");
+  console.dir(qPage);
+
+  qPage.style.display = "none";
+  allDonePage.style.display = "block";
+
    var titleEl = document.querySelector("#title");
    titleEl.textContent = "All done!"
    var qtnEl = document.querySelector("#qtn");
@@ -143,10 +115,8 @@ function finishQuiz(){
 
 }
 
-
 function countdown() {
   console.log("countdown");
-
 
   // Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
   var timeInterval = setInterval(function () {
@@ -230,28 +200,13 @@ bList.addEventListener("click", function(event) {
   if (element.matches("button") === true) {
     // choices : idx 
     var idx = element.parentElement.getAttribute("data-index");
-    console.log("my choice:"+idx); 
-    console.log("index:"+index)
-    console.log("questions:"+questions[index].question);
     var rst = (questions[index].answer==questions[index].choices[idx]?1:0);
     if (rst) score += 10;
     else     timeLeft -= 10;
 
-    console.dir(msg);
-    console.log(rst);
-    console.log(answers[rst]);
-
     msg.textContent = answers[rst];
-    
-
-    console.log("choice:"+questions[index].choices[idx]);
-    console.log("answer:"+questions[index].answer);
     console.log("score:"+score);
-    console.log("time left:"+timeLeft);
-    // todos.splice(index, 1);
-    // TODO: What will happen when the following functions are called?
-    // storeTodos();
-    // renderTodos();
+    
     if (index<questions.length-1) {
       index += 1;
       navigate();
@@ -261,21 +216,6 @@ bList.addEventListener("click", function(event) {
   }
   
 });
-
-
-// TODO: Describe the functionality of the following event listener.
-// carousel.addEventListener("click", function() {
-//   window.location.href = images[index];
-// });
-
-// TODO: Describe the functionality of the following event listener.
-// next.addEventListener("click", function(event) {
-//   // TODO: What is the purpose of the following line of code?
-//   event.stopPropagation();
-
-//   navigate(1);
-// });
-
 
 //first page button
 startButton.addEventListener("click", function() {
